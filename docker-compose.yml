@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mmg-recordings-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mmg
+      POSTGRES_PASSWORD: mmg
+      POSTGRES_DB: mmg_recordings
+    ports:
+      # Host 5433 avoids collision with a local Postgres on 5432.
+      - '5433:5432'
+    volumes:
+      - mmg-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U mmg -d mmg_recordings']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mmg-pgdata:

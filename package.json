@@ -1,0 +1,52 @@
+{
+  "name": "mmg-recording-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated post-production pipeline for MMG Zoom cloud recordings (silence + filler removal, Dropbox delivery).",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev:worker": "tsx watch src/ffmpeg-worker/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/index.js",
+    "start:worker": "node dist/src/ffmpeg-worker/server.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "migrate": "tsx scripts/migrate.ts",
+    "reconcile": "tsx scripts/reconcile-recordings.ts",
+    "replay": "tsx scripts/replay-job.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.650.0",
+    "@aws-sdk/s3-request-presigner": "^3.650.0",
+    "@trigger.dev/sdk": "4.4.4",
+    "assemblyai": "^4.8.0",
+    "dotenv": "^16.4.5",
+    "dropbox": "^10.34.0",
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "undici": "^6.20.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@trigger.dev/build": "4.4.4",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.16.10",
+    "@types/pg": "^8.11.10",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "eslint": "^8.57.1",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.2"
+  }
+}
