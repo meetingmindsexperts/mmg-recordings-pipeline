@@ -23,7 +23,8 @@ const defaults: Record<string, string> = {
   DROPBOX_REFRESH_TOKEN: 'test',
   FFMPEG_WORKER_URL: 'http://127.0.0.1:8080',
   FFMPEG_WORKER_SHARED_SECRET: 'test',
-  SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/TEST/TEST/TEST',
+  ALERT_EMAIL_FROM: 'alerts@example.com',
+  ALERT_EMAIL_TO: 'oncall@example.com',
 };
 
 for (const [key, value] of Object.entries(defaults)) {

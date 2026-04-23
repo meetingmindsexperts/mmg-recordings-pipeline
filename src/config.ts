@@ -1,6 +1,12 @@
-import 'dotenv/config';
+import { config as loadEnv } from 'dotenv';
 import { z } from 'zod';
 import { ConfigError } from './lib/errors.js';
+
+// Load `.env` first, then let `.env.local` override for local overrides that
+// should not be checked in. Values already in process.env (e.g., tests/setup.ts
+// or a shell export) always win because dotenv does not overwrite by default.
+loadEnv();
+loadEnv({ path: '.env.local' });
 
 const schema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -32,7 +38,9 @@ const schema = z.object({
   FFMPEG_WORKER_URL: z.string().url(),
   FFMPEG_WORKER_SHARED_SECRET: z.string().min(1),
 
-  SLACK_WEBHOOK_URL: z.string().url(),
+  ALERT_EMAIL_FROM: z.string().email(),
+  // Comma-separated list of recipients. Consumers split on `,` and trim.
+  ALERT_EMAIL_TO: z.string().min(1),
 });
 
 export type Config = z.infer<typeof schema>;

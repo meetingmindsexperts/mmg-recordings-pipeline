@@ -11,9 +11,11 @@ export interface AlertPayload {
 }
 
 /**
- * Post a Slack alert. Three kinds only in v1 — see CLAUDE.md §11.
+ * Send an email alert. Three kinds only in v1 — see CLAUDE.md §11.
  * Never include transcript contents or attendee PII.
+ * Transport (SES / Resend / SMTP) is deliberately unchosen — wire it when a
+ * decision is made and swap NotImplementedError for the real send call.
  */
 export async function postAlert(_kind: AlertKind, _payload: AlertPayload): Promise<void> {
-  throw new NotImplementedError('slack.postAlert');
+  throw new NotImplementedError('email.postAlert');
 }

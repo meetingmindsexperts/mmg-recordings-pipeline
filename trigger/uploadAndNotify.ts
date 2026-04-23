@@ -15,7 +15,7 @@ export const uploadAndNotify = task({
     triggerLogger.info('uploadAndNotify start', { jobId: payload.jobId });
     // TODO: download edited.mp4 from S3, Dropbox uploadAndShare,
     // persist output_url, transition status: editing -> uploading -> complete,
-    // post Slack success (optional in v1) or failure on rejection.
+    // send email success (optional in v1) or failure on rejection.
     throw new NotImplementedError('uploadAndNotify.run');
   },
 });
